@@ -5,6 +5,9 @@ from dotenv import load_dotenv
 from app.view.categoria_despesa import create as categoria_despesa_create
 from app.view.categoria_despesa import list as categoria_despesa_list
 from app.view.categoria_despesa import update as categoria_despesa_update
+from app.view.categoria_rendimento import create as categoria_rendimento_create
+from app.view.categoria_rendimento import list as categoria_rendimento_list
+from app.view.categoria_rendimento import update as categoria_rendimento_update
 
 # Carrega variaveis de ambiente
 load_dotenv()
@@ -35,7 +38,10 @@ if btn_d_insert:
     st.session_state.page = 'd-insert'
 elif btn_d_list:
     st.session_state.page = 'd-list'
-
+elif btn_r_insert:
+    st.session_state.page = 'r-insert'
+elif btn_r_list:
+    st.session_state.page = 'r-list'
 
 # Carregando view's
 page = st.session_state.page
@@ -45,5 +51,11 @@ elif page == 'd-list':
     categoria_despesa_list.show()
 elif page == 'd-update':
     categoria_despesa_update.show()
+elif page == 'r-insert':
+    categoria_rendimento_create.show()
+elif page == 'r-list':
+    categoria_rendimento_list.show()
+elif page == 'r-update':
+    categoria_rendimento_update.show()
 else:
     st.title('Meu Saldo')
