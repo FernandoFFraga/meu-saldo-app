@@ -8,7 +8,7 @@ from app.model.categoria_despesa_model import CategoriaDespesa
 def show():
     id = st.session_state.id_categoria_despesa
     if id == "":
-        st.session_state.page = "d-list"
+        st.session_state.page = "despesas-categorias-list"
         st.rerun()
 
     item = controller.select_by_id(id)
@@ -25,5 +25,5 @@ def show():
             st.success("Categoria alterada com sucesso!")
 
     if st.button("Voltar"):
-        st.session_state.page = "d-list"
+        st.session_state.page = "despesas-categorias-list"
         st.rerun()

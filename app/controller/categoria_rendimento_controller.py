@@ -48,3 +48,9 @@ def select_all():
     df = pd.read_sql(query, con=db.get_engine())
 
     return df
+
+
+def select_options():
+    df = select_all()
+
+    return df['id'].tolist(), df['nome'].tolist()

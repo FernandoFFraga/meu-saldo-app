@@ -8,7 +8,7 @@ from app.model.categoria_rendimento_model import CategoriaRendimento
 def show():
     id = st.session_state.id_categoria_rendimento
     if id == "":
-        st.session_state.page = "r-list"
+        st.session_state.page = "rendimento-categoria-list"
         st.rerun()
 
     item = controller.select_by_id(id)
@@ -24,5 +24,5 @@ def show():
             st.success("Categoria alterada com sucesso!")
 
     if st.button("Voltar"):
-        st.session_state.page = "r-list"
+        st.session_state.page = "rendimento-categoria-list"
         st.rerun()

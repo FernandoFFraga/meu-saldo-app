@@ -41,7 +41,7 @@ def show():
             st.rerun()
 
         if trigger_action_update:
-            st.session_state.page = 'r-update'
+            st.session_state.page = 'rendimento-categoria-update'
 
             if 'id_categoria_rendimento' not in st.session_state:
                 st.session_state['id_categoria_rendimento'] = ''
