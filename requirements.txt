@@ -1,0 +1,4 @@
+pandas
+PyMySql
+rsqlalchemy
+streamlit-aggrid
