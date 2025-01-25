@@ -2,3 +2,4 @@ pandas
 PyMySql
 rsqlalchemy
 streamlit-aggrid
+dotenv
