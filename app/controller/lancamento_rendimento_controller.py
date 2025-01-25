@@ -32,3 +32,34 @@ def insert_many(item: LancamentoRendimento, count: int):
 
         insert(handle)
 
+
+def delete(id: int):
+    conn = db.get_conn()
+
+    with conn.cursor() as cursor:
+        cursor.execute(f"""DELETE FROM {TBNAME} WHERE id = %s""", id)
+
+    conn.commit()
+
+
+def select_by_id(id: int):
+    conn = db.get_conn()
+
+    with conn.cursor() as cursor:
+        cursor.execute(f"""
+            SELECT id, id_categoria, descricao, valor, uuid_sequencia, data_efetiva 
+            FROM {TBNAME} WHERE id = %s 
+            LIMIT 1""", id)
+
+        return LancamentoRendimento().set(cursor.fetchone())
+
+
+def update(item: LancamentoRendimento):
+    conn = db.get_conn()
+
+    with conn.cursor() as cursor:
+        cursor.execute(f"""
+            UPDATE {TBNAME} set id_categoria = %s, descricao = %s, valor = %s, data_efetiva = %s WHERE id = %s
+        """, (item.id_categoria, item.descricao, item.valor, item.data_efetiva, item.id))
+
+    conn.commit()

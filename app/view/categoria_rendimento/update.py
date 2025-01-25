@@ -21,7 +21,7 @@ def show():
         if btn_submit:
             instance = CategoriaRendimento(id=item.id, nome=inpt_name)
             controller.update(instance)
-            st.success("Categoria alterada com sucesso!")
+            st.toast("Categoria alterada com sucesso!")
 
     if st.button("Voltar"):
         st.session_state.page = "rendimento-categoria-list"

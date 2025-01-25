@@ -16,5 +16,5 @@ def show():
             instance = CategoriaRendimento(nome=inpt_name)
             controller.insert(instance)
 
-            st.success("Categoria incluída com sucesso!")
+            st.toast("Categoria incluída com sucesso!")
 

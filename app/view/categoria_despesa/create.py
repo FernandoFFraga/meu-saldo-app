@@ -17,5 +17,5 @@ def show():
             instance = CategoriaDespesa(nome=inpt_name, limite_mensal=inpt_limit)
             controller.insert(instance)
 
-            st.success("Categoria incluída com sucesso!")
+            st.toast("Categoria incluída com sucesso!")
 

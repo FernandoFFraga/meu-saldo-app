@@ -22,7 +22,7 @@ def show():
         if btn_submit:
             instance = CategoriaDespesa(id=item.id, nome=inpt_name, limite_mensal=inpt_limit)
             controller.update(instance)
-            st.success("Categoria alterada com sucesso!")
+            st.toast("Categoria alterada com sucesso!")
 
     if st.button("Voltar"):
         st.session_state.page = "despesas-categorias-list"

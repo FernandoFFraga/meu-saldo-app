@@ -65,7 +65,7 @@ def form_rendimento():
             else:
                 controller_lancamento_rendimento.insert(instance)
 
-            st.success("Lançamento inserido com sucesso!")
+            st.toast("Lançamento inserido com sucesso!")
 
 
 def form_despesa():
@@ -94,4 +94,4 @@ def form_despesa():
             else:
                 controller_lancamento_despesa.insert(instance)
 
-            st.success("Lançamento inserido com sucesso!")
+            st.toast("Lançamento inserido com sucesso!")

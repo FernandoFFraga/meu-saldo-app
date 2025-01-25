@@ -18,7 +18,7 @@ def show():
                          hide_index=True,
                          column_config={
                              "nome": "Nome",
-                             "limite_mensal": st.column_config.NumberColumn("Limite Mensal", format="R$ %d")
+                             "limite_mensal": st.column_config.NumberColumn("Limite Mensal", format="R$ %.2f")
                          }
                          )
 
