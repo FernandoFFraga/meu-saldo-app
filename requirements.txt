@@ -1,5 +1,5 @@
 pandas
 PyMySql
-rsqlalchemy
+SQLAlchemy
 streamlit-aggrid
 python-dotenv

@@ -9,6 +9,7 @@ from app.view.categoria_despesa import update as categoria_despesa_update
 from app.view.categoria_rendimento import create as categoria_rendimento_create
 from app.view.categoria_rendimento import list as categoria_rendimento_list
 from app.view.categoria_rendimento import update as categoria_rendimento_update
+from app.view.dashboard import main
 from app.view.lancamento import update as lancamento_update
 from app.view.lancamento import create as lancamento_create
 from app.view.lancamento import list as lancamento_list
@@ -25,6 +26,9 @@ if 'page' not in st.session_state:
 
 # Definições do menu
 with st.sidebar:
+    st.subheader('Dashboard')
+    btn_dashboard_inicial = st.button('Inicial', 'btn-7', use_container_width=True)
+
     st.subheader('Lançamentos')
     btn_lancamentos_insert = st.button('Nova', 'btn-1', use_container_width=True)
     btn_lancamentos_list = st.button('Extrato', 'btn-2', use_container_width=True)
@@ -51,7 +55,8 @@ elif btn_lancamentos_insert:
     st.session_state.page = 'lancamentos-insert'
 elif btn_lancamentos_list:
     st.session_state.page = 'lancamentos-list'
-
+elif btn_dashboard_inicial:
+    st.session_state.page = 'dashboard-inicial'
 
 # Mapeando páginas para suas respectivas views
 page_view_map = {
@@ -63,10 +68,11 @@ page_view_map = {
     'rendimento-categoria-update': categoria_rendimento_update.show,
     'lancamentos-insert': lancamento_create.show,
     'lancamentos-list': lancamento_list.show,
-    'lancamentos-update': lancamento_update.show
+    'lancamentos-update': lancamento_update.show,
+    'dashboard-inicial': main.show,
 }
 
 # Carregando view's
 page = st.session_state.get('page', '')
-view_function = page_view_map.get(page, lambda: st.title('Meu Saldo'))
+view_function = page_view_map.get(page, main.show)
 view_function()
