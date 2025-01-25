@@ -45,7 +45,7 @@ def select_despesas_sumarizadas():
 def select_despesas_diarias_mes():
     query = f"""
         SELECT data_efetiva as dia, sum(valor) total
-        FROM lancamento_rendimento
+        FROM {TB_LAC_DEP}
         WHERE year(coalesce(data_efetiva, now())) = year(now()) AND month(coalesce(data_efetiva, now())) = month(now())
         GROUP BY 1
         ORDER BY 1 ASC

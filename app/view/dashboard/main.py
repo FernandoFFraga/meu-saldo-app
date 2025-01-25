@@ -27,6 +27,5 @@ def show():
     with col_right:
         st.header('Despesas Diárias', divider='gray')
         df_despesas_diarias = lancamento_controller.select_despesas_diarias_mes()
-        st.dataframe(df_despesas_diarias)
 
         st.line_chart(df_despesas_diarias, x='dia', y='total')
