@@ -19,7 +19,7 @@ def select_lancamentos(date_start, date_end):
             SELECT * FROM tb_rendimento
             UNION ALL
             SELECT * FROM tb_despesa
-        ) SELECT * FROM tb_final ORDER BY data_efetiva DESC, descricao ASC LIMIT 1000
+        ) SELECT * FROM tb_final ORDER BY data_efetiva DESC, id DESC LIMIT 1000
     """
 
     df = pd.read_sql(query, con=db.get_engine())
