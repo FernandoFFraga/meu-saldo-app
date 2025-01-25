@@ -58,11 +58,11 @@ def select_despesas_diarias_mes():
 def select_despesas_total_mes():
     query = f"""
         WITH tb_atual AS (
-            SELECT coalesce(SUM(valor), 0) total_atual
+            SELECT coalesce(SUM(valor), 0.00) total_atual
             FROM {TB_LAC_DEP} 
             WHERE year(coalesce(data_efetiva, now())) = year(now()) AND month(coalesce(data_efetiva, now())) = month(now())
         ), tb_passado AS (
-            SELECT coalesce(SUM(valor), 0) total_passado
+            SELECT coalesce(SUM(valor), 0.00) total_passado
             FROM {TB_LAC_DEP} 
             WHERE YEAR(COALESCE(data_efetiva, NOW())) = YEAR(DATE_SUB(NOW(), INTERVAL 1 MONTH)) AND MONTH(COALESCE(data_efetiva, NOW())) = MONTH(DATE_SUB(NOW(), INTERVAL 1 MONTH))
         )
@@ -88,11 +88,11 @@ def select_despesas_total_mes():
 def select_rendimento_total_mes():
     query = f"""
         WITH tb_atual AS (
-            SELECT coalesce(SUM(valor), 0) total_atual
+            SELECT coalesce(SUM(valor), 0.00) total_atual
             FROM {TB_LAC_REN} 
             WHERE year(coalesce(data_efetiva, now())) = year(now()) AND month(coalesce(data_efetiva, now())) = month(now())
         ), tb_passado AS (
-            SELECT coalesce(SUM(valor), 0) total_passado
+            SELECT coalesce(SUM(valor), 0.00) total_passado
             FROM {TB_LAC_REN} 
             WHERE YEAR(COALESCE(data_efetiva, NOW())) = YEAR(DATE_SUB(NOW(), INTERVAL 1 MONTH)) AND MONTH(COALESCE(data_efetiva, NOW())) = MONTH(DATE_SUB(NOW(), INTERVAL 1 MONTH))
         )
