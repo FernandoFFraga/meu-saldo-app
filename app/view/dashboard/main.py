@@ -41,8 +41,6 @@ def show():
 
         st.line_chart(df_despesas_diarias, x='dia', y='total')
 
-
-
     st.header('Lançamentos Futuros', divider='gray')
     col_fut_01, col_fut_02 = st.columns((1, 1))
 
@@ -50,6 +48,3 @@ def show():
 
     col_fut_01.metric('Despesas', f'R$ {formatValue(tot_fut_dep)}')
     col_fut_02.metric('Rendimentos', f'R$ {formatValue(tot_fut_ren)}')
-
-
-

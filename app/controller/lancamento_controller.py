@@ -27,6 +27,25 @@ def select_lancamentos(date_start, date_end):
     return df
 
 
+def select_lancamentos_smrd(date_start, date_end):
+    query = f"""
+        WITH tab_rendimento AS (
+            SELECT sum(valor) total_rendimento FROM {TB_LAC_REN}
+            WHERE data_efetiva >= "{date_start.strftime("%Y-%m-%d")}" AND data_efetiva <= "{date_end.strftime("%Y-%m-%d")}"
+        ), tab_despesa AS (
+            SELECT sum(valor) total_despesa FROM {TB_LAC_DEP}
+            WHERE data_efetiva >= "{date_start.strftime("%Y-%m-%d")}" AND data_efetiva <= "{date_end.strftime("%Y-%m-%d")}"
+        ) SELECT * FROM tab_rendimento JOIN tab_despesa ON 1 = 1
+    """
+
+    conn = db.get_conn()
+
+    with conn.cursor() as cursor:
+        cursor.execute(query)
+        item = cursor.fetchone()
+        return item.get('total_rendimento', 0), item.get('total_despesa', 0)
+
+
 def select_despesas_sumarizadas():
     query = f"""
         SELECT nome, limite_mensal, coalesce(sum(valor), 0) total, coalesce(LEAST(SUM(valor) / limite_mensal, 1), 0) AS porcentagem 
@@ -151,7 +170,7 @@ def select_lancamentos_futuros():
     with conn.cursor() as cursor:
         cursor.execute(query)
         item = cursor.fetchone()
-        return item.get('total_rendimento', 0), item.get('total_despesa', 0)
+        return item.get('total_despesa', 0), item.get('total_rendimento', 0)
 
 
 def select_lancamento_futuros_df():

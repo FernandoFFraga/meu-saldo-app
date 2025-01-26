@@ -41,7 +41,6 @@ with st.sidebar:
     btn_rendimento_categorias_insert = st.button('Novo', 'btn-5', use_container_width=True)
     btn_rendimento_categorias_list = st.button('Listar', 'btn-6', use_container_width=True)
 
-
 # Definindo página
 if btn_despesas_categorias_insert:
     st.session_state.page = 'despesas-categorias-insert'

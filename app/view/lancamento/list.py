@@ -2,9 +2,10 @@ from datetime import datetime
 
 import streamlit as st
 
-from app.controller.lancamento_controller import select_lancamentos
+from app.controller.lancamento_controller import select_lancamentos, select_lancamentos_smrd
 import app.controller.lancamento_rendimento_controller as r_controller
 import app.controller.lancamento_despesa_controller as d_controller
+from babel.numbers import format_currency
 
 
 def show():
@@ -16,6 +17,11 @@ def show():
     d_end = col_inpt_2.date_input("Data Final", format="DD/MM/YYYY")
 
     df = select_lancamentos(d_start, d_end)
+
+    tot_ren, tot_dep = select_lancamentos_smrd(d_start, d_end)
+
+    tot_ren = 0.00 if not tot_ren else tot_ren
+    tot_dep = 0.00 if not tot_dep else tot_dep
 
     df['tipo_icon'] = df['tipo'].map({
         'despesa': '❌',
@@ -69,3 +75,7 @@ def show():
             st.session_state.tipo_lancamento = str(tb_select.get('tipo'))
 
             st.rerun()
+
+    col_smrd_01, col_smrd_02 = st.columns((1, 1))
+    col_smrd_01.metric('Total Rendimento', f'R$ {format_currency(tot_ren, '', locale='pt_BR')}')
+    col_smrd_02.metric('Total Despesas', f'R$ {format_currency(tot_dep, '', locale='pt_BR')}')
