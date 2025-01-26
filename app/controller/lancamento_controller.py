@@ -55,6 +55,7 @@ def select_despesas_diarias_mes():
 
     return df
 
+
 def select_despesas_total_mes():
     query = f"""
         WITH tb_atual AS (
@@ -113,3 +114,22 @@ def select_rendimento_total_mes():
         cursor.execute(query)
         item = cursor.fetchone()
         return item.get('total_atual', 0), item.get('variacao_percentual', 0)
+
+
+def select_saldo():
+    query = f"""
+        SELECT SUM(total) saldo FROM (
+            SELECT sum(valor) * -1 total FROM {TB_LAC_DEP}
+            WHERE year(coalesce(data_efetiva, now())) <= year(now()) AND month(coalesce(data_efetiva, now())) <= month(now())
+            UNION ALL
+            SELECT sum(valor) total FROM {TB_LAC_REN}
+            WHERE year(coalesce(data_efetiva, now())) <= year(now()) AND month(coalesce(data_efetiva, now())) <= month(now()) 
+        ) smrd
+    """
+
+    conn = db.get_conn()
+
+    with conn.cursor() as cursor:
+        cursor.execute(query)
+        item = cursor.fetchone()
+        return item.get('saldo', 0)

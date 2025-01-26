@@ -1,18 +1,27 @@
+import locale
+
 import streamlit as st
 
 from app.controller import lancamento_controller
 
 
+def formatValue(n):
+    locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
+    return locale.format_string('%.2f', n, grouping=True)
+
+
 def show():
     st.header('Balanço Mensal', divider='gray')
-    col_bal_left, col_bal_midle, col_bal_right = st.columns((1, 1, 1))
+    col_bal_01, col_bal_02, col_bal_03, col_bal_04 = st.columns((1, 1, 1, 1))
 
     tot_dep, per_dep = lancamento_controller.select_despesas_total_mes()
     tot_ren, per_ren = lancamento_controller.select_rendimento_total_mes()
+    saldo = lancamento_controller.select_saldo()
 
-    col_bal_left.metric('Total Despesas', f'R$ {tot_dep}', f"{per_dep}%")
-    col_bal_midle.metric('Total Rendimentos', f'R$ {tot_ren}', f"{per_ren}%")
-    col_bal_right.metric('Profit', f'R$ {tot_ren - tot_dep}')
+    col_bal_01.metric('Total Despesas', f'R$ {formatValue(tot_dep)}', f"{per_dep}%")
+    col_bal_02.metric('Total Rendimentos', f'R$ {formatValue(tot_ren)}', f"{per_ren}%")
+    col_bal_03.metric('Profit', f'R$ {formatValue(tot_ren - tot_dep)}')
+    col_bal_04.metric('Saldo', f'R$ {formatValue(saldo)}')
 
     col_left, col_right = st.columns((1, 1))
 
