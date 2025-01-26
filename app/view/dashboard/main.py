@@ -32,8 +32,9 @@ def show():
         df_despesas_sumarizadas = lancamento_controller.select_despesas_sumarizadas()
 
         for index, row in df_despesas_sumarizadas.iterrows():
+            icon = "✅" if row['total'] <= row['limite_mensal'] else "❌"
             st.progress(row['porcentagem'],
-                        text=f'{row['nome'].capitalize()} ({row['total']} de {row['limite_mensal']})')
+                        text=f'{icon} {row['nome'].capitalize()} ({row['total']} de {row['limite_mensal']})')
 
     with col_right:
         st.header('Despesas Diárias', divider='gray')
