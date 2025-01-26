@@ -1,13 +1,11 @@
-import locale
-
 import streamlit as st
+from babel.numbers import format_currency
 
 from app.controller import lancamento_controller
 
 
 def formatValue(n):
-    locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
-    return locale.format_string('%.2f', n, grouping=True)
+    return format_currency(n, '', locale='pt_BR')
 
 
 def show():

@@ -3,3 +3,4 @@ PyMySql
 SQLAlchemy
 streamlit-aggrid
 python-dotenv
+Babel
