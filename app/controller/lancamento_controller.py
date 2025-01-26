@@ -120,10 +120,10 @@ def select_saldo():
     query = f"""
         SELECT SUM(total) saldo FROM (
             SELECT sum(valor) * -1 total FROM {TB_LAC_DEP}
-            WHERE year(coalesce(data_efetiva, now())) <= year(now()) AND month(coalesce(data_efetiva, now())) <= month(now())
+            WHERE data_efetiva <= now()
             UNION ALL
             SELECT sum(valor) total FROM {TB_LAC_REN}
-            WHERE year(coalesce(data_efetiva, now())) <= year(now()) AND month(coalesce(data_efetiva, now())) <= month(now()) 
+            WHERE data_efetiva <= now() 
         ) smrd
     """
 
