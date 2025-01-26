@@ -21,6 +21,10 @@ def show():
     col_bal_03.metric('Profit', f'R$ {formatValue(tot_ren - tot_dep)}')
     col_bal_04.metric('Saldo', f'R$ {formatValue(saldo)}')
 
+    st.header('Visão Geral', divider='gray')
+    df_lancamento_futuro = lancamento_controller.select_lancamento_futuros_df()
+    st.bar_chart(df_lancamento_futuro, y="valor", x="mes", color="tipo", stack=False)
+
     col_left, col_right = st.columns((1, 1))
 
     with col_left:
@@ -36,3 +40,16 @@ def show():
         df_despesas_diarias = lancamento_controller.select_despesas_diarias_mes()
 
         st.line_chart(df_despesas_diarias, x='dia', y='total')
+
+
+
+    st.header('Lançamentos Futuros', divider='gray')
+    col_fut_01, col_fut_02 = st.columns((1, 1))
+
+    tot_fut_dep, tot_fut_ren = lancamento_controller.select_lancamentos_futuros()
+
+    col_fut_01.metric('Despesas', f'R$ {formatValue(tot_fut_dep)}')
+    col_fut_02.metric('Rendimentos', f'R$ {formatValue(tot_fut_ren)}')
+
+
+

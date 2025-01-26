@@ -133,3 +133,46 @@ def select_saldo():
         cursor.execute(query)
         item = cursor.fetchone()
         return item.get('saldo', 0)
+
+
+def select_lancamentos_futuros():
+    query = f"""
+        WITH tab_rendimento AS (
+            SELECT sum(valor) total_rendimento FROM {TB_LAC_REN}
+            WHERE data_efetiva >= DATE_FORMAT(now() + INTERVAL 1 MONTH, '%Y-%m-01')
+        ), tab_despesa AS (
+            SELECT sum(valor) total_despesa FROM {TB_LAC_DEP}
+            WHERE data_efetiva >= DATE_FORMAT(now() + INTERVAL 1 MONTH, '%Y-%m-01')
+        ) SELECT * FROM tab_rendimento JOIN tab_despesa ON 1 = 1
+    """
+
+    conn = db.get_conn()
+
+    with conn.cursor() as cursor:
+        cursor.execute(query)
+        item = cursor.fetchone()
+        return item.get('total_rendimento', 0), item.get('total_despesa', 0)
+
+
+def select_lancamento_futuros_df():
+    query = f"""
+        WITH tab_rendimento AS (
+            SELECT *, 'rendimento' AS tipo FROM {TB_LAC_REN}
+            WHERE data_efetiva >= year(now())
+        ), tab_despesa AS (
+            SELECT *, 'despesa' AS tipo FROM {TB_LAC_DEP}
+            WHERE data_efetiva >= year(now())
+        ), tab_final AS (
+            SELECT * FROM tab_rendimento 
+            UNION ALL 
+            SELECT * FROM tab_despesa
+        ) 
+        
+        SELECT DATE_FORMAT(data_efetiva, '%%Y-%%m') mes, tipo, sum(valor) valor 
+        FROM tab_final 
+        GROUP BY 1, 2
+    """
+
+    df = pd.read_sql(query, con=db.get_engine())
+
+    return df
