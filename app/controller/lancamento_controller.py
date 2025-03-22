@@ -195,3 +195,29 @@ def select_lancamento_futuros_df():
     df = pd.read_sql(query, con=db.get_engine())
 
     return df
+
+
+
+
+def select_categorias_por_mes():
+    query = f"""
+        WITH tab_lanche AS (
+            SELECT *, 'lanche' AS tipo FROM {TB_LAC_DEP}
+            WHERE id_categoria = 6
+        ), tab_lazer AS (
+            SELECT *, 'lazer' AS tipo FROM {TB_LAC_DEP}
+            WHERE id_categoria = 1
+        ), tab_final AS (
+            SELECT * FROM tab_lanche 
+            UNION ALL 
+            SELECT * FROM tab_lazer
+        ) 
+
+        SELECT DATE_FORMAT(data_efetiva, '%Y-%m') mes, tipo, sum(valor) valor 
+        FROM tab_final 
+        GROUP BY 1, 2
+    """
+
+    df = pd.read_sql(query, con=db.get_engine())
+
+    return df

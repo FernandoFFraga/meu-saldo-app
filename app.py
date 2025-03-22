@@ -10,6 +10,7 @@ from app.view.categoria_rendimento import create as categoria_rendimento_create
 from app.view.categoria_rendimento import list as categoria_rendimento_list
 from app.view.categoria_rendimento import update as categoria_rendimento_update
 from app.view.dashboard import main
+from app.view.dashboard import history
 from app.view.lancamento import update as lancamento_update
 from app.view.lancamento import create as lancamento_create
 from app.view.lancamento import list as lancamento_list
@@ -57,6 +58,8 @@ elif btn_lancamentos_list:
     st.session_state.page = 'lancamentos-list'
 elif btn_dashboard_inicial:
     st.session_state.page = 'dashboard-inicial'
+elif btn_dashboard_historico:
+    st.session_state.page = 'dashboard-historico'
 
 # Mapeando páginas para suas respectivas views
 page_view_map = {
@@ -70,6 +73,7 @@ page_view_map = {
     'lancamentos-list': lancamento_list.show,
     'lancamentos-update': lancamento_update.show,
     'dashboard-inicial': main.show,
+    'dashboard-historico': history.show,
 }
 
 # Carregando view's
