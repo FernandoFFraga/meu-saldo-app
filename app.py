@@ -28,6 +28,7 @@ if 'page' not in st.session_state:
 with st.sidebar:
     st.subheader('Dashboard')
     btn_dashboard_inicial = st.button('Inicial', 'btn-7', use_container_width=True)
+    btn_dashboard_historico = st.button('Histórico', 'btn-8', use_container_width=True)
 
     st.subheader('Lançamentos')
     btn_lancamentos_insert = st.button('Nova', 'btn-1', use_container_width=True)
