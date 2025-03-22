@@ -213,7 +213,7 @@ def select_categorias_por_mes():
             SELECT * FROM tab_lazer
         ) 
 
-        SELECT DATE_FORMAT(data_efetiva, '%Y-%m') mes, tipo, sum(valor) valor 
+        SELECT DATE_FORMAT(data_efetiva, '%%Y-%%m') mes, tipo, sum(valor) valor 
         FROM tab_final 
         GROUP BY 1, 2
     """
